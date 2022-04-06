@@ -5,7 +5,9 @@ use Exception;
 
 require_once('src\config\db_config.php');
 
-//TODO: submodel SQL implement
+//TODO: use memcached for high load
+//TODO: add CR data support for all tables
+//TODO: review SQL statements
 
 
 class Model

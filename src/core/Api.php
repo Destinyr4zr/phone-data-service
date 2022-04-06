@@ -13,11 +13,6 @@ require_once(realpath($_SERVER["DOCUMENT_ROOT"]).'../config/api_config.php');
 
 class Api
 {
-    protected $endpoints_path = "../endpoints/";
-    protected $endpoint_method;
-    protected $endpoint_class;
-    protected $endpoint_arguments;
-
     public function __construct()
     {
         try {

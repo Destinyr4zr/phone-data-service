@@ -1,5 +1,5 @@
 <?php
-//TODO: support message-codes key-value
+//TODO: support code-message mapping
 
 const API_ACCESS_DENIED = "You have no access to this API";
 const NO_ENDPOINT_SPECIFIED = "No endpoint specified for your request";
