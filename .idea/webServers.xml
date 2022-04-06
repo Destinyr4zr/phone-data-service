@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cb9bd905-144f-427d-8004-9958c70b08d2" name="test-server" url="http://localhost">
+        <fileTransfer mountedRoot="E:\Projects\GIT\phone_data_service\src" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

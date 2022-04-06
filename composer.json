@@ -1,0 +1,10 @@
+{
+    "name": "kirill/phone_data_service",
+    "type": "project",
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "require": {
+        "klein/klein": "^2.1"
+    }
+}
