@@ -6,9 +6,7 @@ use Exception;
 require_once('src\config\db_config.php');
 
 //TODO: use memcached for high load
-//TODO: add CR data support for all tables
-//TODO: review SQL statements
-
+//TODO: check JSON encoding
 
 class Model
 {
@@ -22,5 +20,10 @@ class Model
             echo header('Content-Type: application/json; charset=utf8');
             echo json_encode(["response" => "false", "body" => ["source" => "$_SERVER[SERVER_NAME]", "response_code" => $e->getCode(), "response_msg" => $e->getMessage()]]);
         }
+    }
+    protected function queryExecute($SQL, $mask){
+        $stmt = $this->pdo->prepare($SQL);
+        $stmt->execute($mask);
+        return $stmt->fetch();
     }
 }

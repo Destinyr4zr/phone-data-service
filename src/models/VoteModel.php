@@ -7,17 +7,14 @@ use src\core\Model;
 
 class VoteModel extends Model
 {
-    public function upVote($reviewID,$ip)
+    public function setVoteByReview($reviewID, $ip, $action)
     {
-        $stmt = $this->pdo->prepare('UPDATE Votes SET rating=rating+1,ip=:ip WHERE reviewID =:review');
-        $stmt->execute(['reviewID' => $reviewID,'ip'=>$ip]);
-        return $stmt->fetch();
-    }
-
-    public function downVote($reviewID,$ip)
-    {
-        $stmt = $this->pdo->prepare('UPDATE Votes SET rating=rating-1,ip=:ip WHERE reviewID =:review');
-        $stmt->execute(['reviewID' => $reviewID,'ip'=>$ip]);
-        return $stmt->fetch();
+        $rating=$action=='down'?'-1':'1';
+        $SQL=<<<'SQL'
+        INSERT INTO Votes
+        (`ID`,`rating`,`IP`,`ReviewID`)
+        VALUES(NULL, ':rating', ':ip', ':review');
+SQL;
+        return $this->queryExecute($SQL,['rating'=>$rating,'review' => $reviewID,'ip'=>$ip]);
     }
 }

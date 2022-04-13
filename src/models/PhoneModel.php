@@ -11,20 +11,24 @@ class PhoneModel extends Model
         parent::__construct();
     }
 
-    public function getPhone()
+    public function setPhone($prefix,$phone)
     {
-
+        $SQL=<<<'SQL'
+        INSERT INTO Phones
+        (`ID`,`phone`,`countryID`)
+        VALUES
+        (NULL,':phone', (SELECT ID from Countries WHERE prefix=':prefix'));
+SQL;
+        return $this->queryExecute($SQL,['prefix' => $prefix,'phone'=>$phone]);
     }
 
-    public function setPhone()
+    public function getPhoneByPattern($pattern)
     {
-
-    }
-
-    public function searchPhone($pattern)
-    {
-        $stmt = $this->pdo->prepare('SELECT Phones.phone, COUNT (Reviews.review) OVER (PARTITION BY Phones.phone) AS reviewNumber   FROM Phones JOIN Reviews  ON Phones.ID = Reviews.phoneID WHERE phone LIKE "%:phone"');
-        $stmt->execute(['phone' => $pattern]);
-        return $stmt->fetch();
+        $SQL=<<<'SQL'
+        SELECT Phones.phone, COUNT(Reviews.phoneID)
+        FROM Phones JOIN Reviews ON Phones.ID = Reviews.phoneID
+        WHERE phone LIKE ':phone%' GROUP BY Phones.phone;
+SQL;
+        return $this->queryExecute($SQL,['phone' => $pattern]);
     }
 }

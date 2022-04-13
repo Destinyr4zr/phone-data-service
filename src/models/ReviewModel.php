@@ -9,19 +9,31 @@ class ReviewModel extends Model
     {
         parent::__construct();
     }
-    public function getReview($id){
-        $stmt = $this->pdo->prepare('SELECT review, author FROM Reviews WHERE Review.ID= :id');
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+    public function getReviewByID($id){
+        $SQL=<<<'SQL'
+        SELECT review, author 
+        FROM Reviews 
+        WHERE Review.ID= ':id';
+SQL;
+        return $this->queryExecute($SQL,['id'=>$id]);
     }
-    public function setReview($phone,$name,$review){
-        $stmt = $this->pdo->prepare('INSERT INTO Reviews SELECT :review, :author,Phones.phoneID WHERE Phones.phone = :phone');
-        $stmt->execute(['phone' => $phone,'name' => $name,'review'=>$review]);
-        return $stmt->fetch();
+    public function setReviewByPhone($phone, $name, $review){
+        $SQL=<<<'SQL'
+        INSERT INTO Reviews
+        (`id`,`author`,`Review`,`phoneID`)
+        SELECT NULL, :author, :review,Phones.phoneID 
+        FROM Phones
+        WHERE Phones.phone = ':phone';
+SQL;
+        return $this->queryExecute($SQL,['phone' => $phone,'author' => $name,'review'=>$review]);
     }
-    public function getReviews($phone){
-        $stmt = $this->pdo->prepare('SELECT review, author FROM Reviews JOIN (SELECT ID WHERE Phones.phone=:phone) AS FilterPhones ON FilterPhones.ID = Reviews.phoneID');
-        $stmt->execute(['phone' => $phone]);
-        return $stmt->fetch();
+    public function getReviewsByPhone($phone){
+        $SQL=<<<'SQL'
+        SELECT review, author 
+        FROM Reviews 
+        JOIN Phones
+        ON Phones.ID = Reviews.phoneID AND Phones.phone=':phone';
+SQL;
+        return $this->queryExecute($SQL,['phone' => $phone]);
     }
 }
