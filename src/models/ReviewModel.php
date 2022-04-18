@@ -13,7 +13,7 @@ class ReviewModel extends Model
         $SQL=<<<'SQL'
         SELECT review, author 
         FROM Reviews 
-        WHERE Review.ID= ':id';
+        WHERE Review.ID= :id;
 SQL;
         return $this->queryExecute($SQL,['id'=>$id]);
     }
@@ -23,7 +23,7 @@ SQL;
         (`id`,`author`,`Review`,`phoneID`)
         SELECT NULL, :author, :review,Phones.phoneID 
         FROM Phones
-        WHERE Phones.phone = ':phone';
+        WHERE Phones.phone = :phone;
 SQL;
         return $this->queryExecute($SQL,['phone' => $phone,'author' => $name,'review'=>$review]);
     }
@@ -32,7 +32,7 @@ SQL;
         SELECT review, author 
         FROM Reviews 
         JOIN Phones
-        ON Phones.ID = Reviews.phoneID AND Phones.phone=':phone';
+        ON Phones.ID = Reviews.phoneID AND Phones.phone=:phone;
 SQL;
         return $this->queryExecute($SQL,['phone' => $phone]);
     }

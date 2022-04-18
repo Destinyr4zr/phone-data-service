@@ -12,7 +12,7 @@ class CountryModel extends Model
         INSERT INTO Countries
         (`ID`,`Name`,`Prefix`)
         VALUES
-        (NULL,':name', ':prefix');
+        (NULL,:name, :prefix);
 SQL;
         return $this->queryExecute($SQL, ['name' => $name, 'prefix' => $prefix]);
     }

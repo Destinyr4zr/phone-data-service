@@ -2,10 +2,9 @@
 
 namespace src\core;
 
-
-use Exception;
-use src\logic\FileValidation;
+use src\core\Router;
 use src\logic\URLValidation;
+use Exception;
 
 require_once(realpath($_SERVER["DOCUMENT_ROOT"]).'../config/api_config.php');
 
@@ -13,11 +12,12 @@ require_once(realpath($_SERVER["DOCUMENT_ROOT"]).'../config/api_config.php');
 
 class Api
 {
+    protected $router;
     public function __construct()
     {
         try {
             if ((new URLValidation())->check()) {
-                $router= new Router();
+                $this->router= new Router();
             }
         } catch (Exception $e) {
             echo header('Content-Type: application/json; charset=utf8');

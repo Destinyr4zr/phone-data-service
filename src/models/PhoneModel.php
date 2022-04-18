@@ -17,7 +17,7 @@ class PhoneModel extends Model
         INSERT INTO Phones
         (`ID`,`phone`,`countryID`)
         VALUES
-        (NULL,':phone', (SELECT ID from Countries WHERE prefix=':prefix'));
+        (NULL,:phone, (SELECT ID from Countries WHERE prefix=:prefix));
 SQL;
         return $this->queryExecute($SQL,['prefix' => $prefix,'phone'=>$phone]);
     }
@@ -27,8 +27,8 @@ SQL;
         $SQL=<<<'SQL'
         SELECT Phones.phone, COUNT(Reviews.phoneID)
         FROM Phones JOIN Reviews ON Phones.ID = Reviews.phoneID
-        WHERE phone LIKE ':phone%' GROUP BY Phones.phone;
+        WHERE phone LIKE :phone GROUP BY Phones.phone;
 SQL;
-        return $this->queryExecute($SQL,['phone' => $pattern]);
+        return $this->queryExecute($SQL,['phone' => "$pattern%"]);
     }
 }

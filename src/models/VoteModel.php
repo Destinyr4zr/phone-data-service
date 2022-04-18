@@ -13,8 +13,11 @@ class VoteModel extends Model
         $SQL=<<<'SQL'
         INSERT INTO Votes
         (`ID`,`rating`,`IP`,`ReviewID`)
-        VALUES(NULL, ':rating', ':ip', ':review');
+        VALUES(NULL, :rating, :ip, :review);
 SQL;
         return $this->queryExecute($SQL,['rating'=>$rating,'review' => $reviewID,'ip'=>$ip]);
+    }
+    public function getVoteByID(){
+
     }
 }
