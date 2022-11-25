@@ -1,2 +1,2 @@
 # phone-data-service
-Basic backend API example
+Basic service example
