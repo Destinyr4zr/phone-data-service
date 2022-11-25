@@ -42,6 +42,18 @@ class Middleware extends Callback
         $this->successResponseSend(200, 'Vote updated!');
     }
 
+    public function phoneViewHandler($request)
+    {
+        (new VoteModel())->setVoteByReview($request->param('reviewID'), $request->param('ip'),$request->action);
+        $this->successResponseSend(200, 'Vote updated!');
+    }
+
+    public function mainViewHandler($request)
+    {
+        (new VoteModel())->setVoteByReview($request->param('reviewID'), $request->param('ip'),$request->action);
+        $this->successResponseSend(200, 'Vote updated!');
+    }
+
     protected function successResponseSend($code, $message, $body=NULL)
     {
         echo header('Content-Type: application/json; charset=utf8');

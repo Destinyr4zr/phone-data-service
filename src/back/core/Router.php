@@ -14,6 +14,7 @@ class Router
         try {
             $klein = new Klein();
             $this->middleware=new Middleware();
+            $klein->respond('GET','/',[$this->middleware,'mainHandler']);
             $klein->respond('GET', '/reviews', [$this->middleware,'reviewsHandler']);
             $klein->respond('GET', '/review', [$this->middleware,'reviewHandler']);
             $klein->respond('POST', '/review', [$this->middleware,'reviewHandler']);
